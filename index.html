@@ -1,0 +1,2289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>English IX — PTS Interactive Study</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --bg:#07111f;
+  --card:#0d1b2d;
+  --card2:#10243a;
+  --text:#edf6ff;
+  --muted:#9eb3c9;
+  --cyan:#38d9ff;
+  --green:#48e39b;
+  --yellow:#ffd166;
+  --red:#ff6b81;
+  --purple:#a78bfa;
+  --border:rgba(255,255,255,.09);
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:
+    radial-gradient(circle at 10% 10%,rgba(56,217,255,.13),transparent 25%),
+    radial-gradient(circle at 90% 20%,rgba(167,139,250,.13),transparent 25%),
+    radial-gradient(circle at 50% 100%,rgba(72,227,155,.08),transparent 30%),
+    var(--bg);
+  color:var(--text);
+  min-height:100vh;
+}
+
+button,
+input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+.container{
+  width:min(1100px,94%);
+  margin:auto;
+}
+
+/* HERO */
+.hero{
+  min-height:420px;
+  display:flex;
+  align-items:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.hero::before,
+.hero::after{
+  content:"";
+  position:absolute;
+  border-radius:50%;
+  filter:blur(2px);
+  animation:float 6s ease-in-out infinite;
+}
+
+.hero::before{
+  width:180px;
+  height:180px;
+  background:rgba(56,217,255,.08);
+  top:30px;
+  right:8%;
+}
+
+.hero::after{
+  width:130px;
+  height:130px;
+  background:rgba(167,139,250,.09);
+  bottom:30px;
+  left:5%;
+  animation-delay:1s;
+}
+
+@keyframes float{
+  50%{transform:translateY(-18px) scale(1.08)}
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  padding:70px 0;
+}
+
+.badge{
+  display:inline-block;
+  padding:8px 14px;
+  border:1px solid rgba(56,217,255,.3);
+  border-radius:30px;
+  color:var(--cyan);
+  background:rgba(56,217,255,.06);
+  margin-bottom:18px;
+  font-size:13px;
+}
+
+.hero h1{
+  font-size:clamp(36px,7vw,72px);
+  line-height:.95;
+  margin-bottom:20px;
+}
+
+.hero h1 span{
+  color:var(--cyan);
+}
+
+.hero p{
+  color:var(--muted);
+  max-width:700px;
+  line-height:1.7;
+}
+
+.hero-buttons{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:28px;
+}
+
+/* BUTTON */
+.btn{
+  border:0;
+  border-radius:13px;
+  padding:12px 18px;
+  color:white;
+  background:#17314b;
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
+  background:#20435f;
+}
+
+.btn.primary{
+  background:linear-gradient(135deg,#19bde4,#168fc5);
+}
+
+.btn.green{
+  background:linear-gradient(135deg,#27d88b,#149b68);
+}
+
+.btn.purple{
+  background:linear-gradient(135deg,#9a78f4,#684bc2);
+}
+
+.btn.red{
+  background:linear-gradient(135deg,#ff647e,#c53e58);
+}
+
+/* STATS */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin:30px 0;
+}
+
+.stat{
+  background:rgba(13,27,45,.85);
+  border:1px solid var(--border);
+  padding:20px;
+  border-radius:18px;
+  text-align:center;
+}
+
+.stat b{
+  display:block;
+  font-size:27px;
+  color:var(--cyan);
+  margin-bottom:5px;
+}
+
+.stat span{
+  font-size:12px;
+  color:var(--muted);
+}
+
+/* SEARCH */
+.search-box{
+  position:sticky;
+  top:10px;
+  z-index:20;
+  margin:25px 0;
+}
+
+.search-box input{
+  width:100%;
+  padding:16px 20px;
+  border-radius:15px;
+  border:1px solid var(--border);
+  background:rgba(8,22,37,.94);
+  color:white;
+  outline:none;
+}
+
+.search-box input:focus{
+  border-color:var(--cyan);
+  box-shadow:0 0 0 3px rgba(56,217,255,.08);
+}
+
+/* SECTION */
+.section{
+  margin:50px 0;
+}
+
+.section-title{
+  margin-bottom:20px;
+}
+
+.section-title small{
+  color:var(--cyan);
+}
+
+.section-title h2{
+  font-size:32px;
+  margin-top:5px;
+}
+
+/* ACCORDION */
+.accordion{
+  border:1px solid var(--border);
+  background:rgba(13,27,45,.85);
+  border-radius:17px;
+  overflow:hidden;
+  margin-bottom:12px;
+}
+
+.acc-head{
+  padding:19px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  cursor:pointer;
+}
+
+.acc-head:hover{
+  background:rgba(255,255,255,.025);
+}
+
+.acc-head strong{
+  font-size:16px;
+}
+
+.arrow{
+  transition:.3s;
+  color:var(--cyan);
+}
+
+.acc-body{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .45s ease;
+}
+
+.acc-inner{
+  padding:0 19px 22px;
+  color:#d6e4f0;
+  line-height:1.7;
+}
+
+.accordion.open .acc-body{
+  max-height:1500px;
+}
+
+.accordion.open .arrow{
+  transform:rotate(180deg);
+}
+
+/* CONTENT */
+.topic{
+  background:rgba(255,255,255,.025);
+  border:1px solid var(--border);
+  border-radius:15px;
+  padding:17px;
+  margin:12px 0;
+}
+
+.topic h3{
+  color:var(--cyan);
+  margin-bottom:10px;
+}
+
+.topic h4{
+  color:var(--yellow);
+  margin:12px 0 5px;
+}
+
+.topic ul{
+  margin-left:20px;
+}
+
+.example{
+  background:#06101c;
+  border-left:3px solid var(--green);
+  padding:13px;
+  border-radius:8px;
+  margin:10px 0;
+}
+
+.formula{
+  background:rgba(167,139,250,.08);
+  border:1px solid rgba(167,139,250,.2);
+  padding:14px;
+  border-radius:10px;
+  font-family:monospace;
+  color:#d9ccff;
+  margin:10px 0;
+}
+
+/* TABLE */
+.table-wrap{
+  overflow-x:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  margin:10px 0;
+  min-width:500px;
+}
+
+th,td{
+  padding:10px;
+  border:1px solid var(--border);
+  text-align:left;
+}
+
+th{
+  color:var(--cyan);
+  background:rgba(56,217,255,.05);
+}
+
+/* FLASHCARD */
+.flash-area{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:15px;
+}
+
+.flashcard{
+  height:180px;
+  perspective:900px;
+  cursor:pointer;
+}
+
+.flash-inner{
+  position:relative;
+  width:100%;
+  height:100%;
+  transition:.6s;
+  transform-style:preserve-3d;
+}
+
+.flashcard.flipped .flash-inner{
+  transform:rotateY(180deg);
+}
+
+.flash-front,
+.flash-back{
+  position:absolute;
+  inset:0;
+  backface-visibility:hidden;
+  border-radius:18px;
+  border:1px solid var(--border);
+  padding:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  background:linear-gradient(135deg,#102b43,#0b1829);
+}
+
+.flash-front{
+  color:var(--cyan);
+  font-size:21px;
+  font-weight:bold;
+}
+
+.flash-back{
+  transform:rotateY(180deg);
+  color:#dcecff;
+}
+
+/* QUIZ */
+.quiz-card{
+  background:rgba(13,27,45,.9);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:22px;
+}
+
+.quiz-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:15px;
+}
+
+.timer{
+  color:var(--yellow);
+  font-weight:bold;
+}
+
+.progress{
+  height:8px;
+  background:#17283a;
+  border-radius:20px;
+  overflow:hidden;
+  margin:15px 0 22px;
+}
+
+.progress-bar{
+  width:0%;
+  height:100%;
+  background:linear-gradient(90deg,var(--cyan),var(--green));
+  transition:.3s;
+}
+
+.question{
+  font-size:20px;
+  line-height:1.5;
+  margin-bottom:18px;
+}
+
+.options{
+  display:grid;
+  gap:10px;
+}
+
+.option{
+  width:100%;
+  text-align:left;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:14px;
+  background:#0a1a2b;
+  color:#e8f3ff;
+  transition:.2s;
+}
+
+.option:hover{
+  border-color:var(--cyan);
+  transform:translateX(3px);
+}
+
+.option.correct{
+  background:rgba(72,227,155,.15);
+  border-color:var(--green);
+}
+
+.option.wrong{
+  background:rgba(255,107,129,.15);
+  border-color:var(--red);
+}
+
+.feedback{
+  min-height:30px;
+  margin:16px 0;
+  font-weight:bold;
+}
+
+.quiz-actions{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:18px;
+}
+
+.score{
+  text-align:center;
+  padding:30px;
+  display:none;
+}
+
+.score-number{
+  font-size:65px;
+  font-weight:bold;
+  color:var(--green);
+}
+
+/* RESULT */
+.result-box{
+  background:linear-gradient(135deg,rgba(56,217,255,.09),rgba(72,227,155,.07));
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:25px;
+  text-align:center;
+}
+
+.result-box h3{
+  font-size:28px;
+  margin-bottom:10px;
+}
+
+/* REFLECTION */
+textarea{
+  width:100%;
+  min-height:130px;
+  background:#081725;
+  color:white;
+  border:1px solid var(--border);
+  border-radius:13px;
+  padding:15px;
+  outline:none;
+  resize:vertical;
+}
+
+textarea:focus{
+  border-color:var(--cyan);
+}
+
+/* TOAST */
+.toast{
+  position:fixed;
+  bottom:25px;
+  left:50%;
+  transform:translate(-50%,120px);
+  background:#132c42;
+  border:1px solid var(--border);
+  padding:14px 20px;
+  border-radius:14px;
+  z-index:100;
+  transition:.3s;
+}
+
+.toast.show{
+  transform:translate(-50%,0);
+}
+
+/* BACK TOP */
+.top{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  width:45px;
+  height:45px;
+  border-radius:50%;
+  border:0;
+  background:var(--cyan);
+  color:#06101b;
+  font-weight:bold;
+  display:none;
+  z-index:50;
+}
+
+/* RESPONSIVE */
+@media(max-width:700px){
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .hero{
+    min-height:350px;
+  }
+
+  .section-title h2{
+    font-size:26px;
+  }
+
+  .question{
+    font-size:17px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="hero">
+<div class="container hero-content">
+
+<div class="badge">📚 ENGLISH IX • PTS GANJIL</div>
+
+<h1>Explore<br><span>English.</span></h1>
+
+<p>
+Interactive study material for Chapter 1 — Exploring Fauna of Indonesia
+and Chapter 2 — Taking Trips.
+Learn, flip cards, search topics, and test yourself.
+</p>
+
+<div class="hero-buttons">
+<button class="btn primary" onclick="scrollToSection('materi')">
+📖 Start Learning
+</button>
+
+<button class="btn green" onclick="startQuiz()">
+🎯 Start Quiz
+</button>
+
+<button class="btn purple" onclick="openAll()">
+⚡ Open All
+</button>
+</div>
+
+</div>
+</header>
+
+
+<main class="container">
+
+<div class="stats">
+<div class="stat">
+<b>2</b>
+<span>Chapters</span>
+</div>
+
+<div class="stat">
+<b>50</b>
+<span>PTS Items</span>
+</div>
+
+<div class="stat">
+<b>8+</b>
+<span>Main Topics</span>
+</div>
+
+<div class="stat">
+<b>∞</b>
+<span>Practice</span>
+</div>
+</div>
+
+
+<div class="search-box">
+<input
+id="search"
+type="text"
+placeholder="🔎 Search: bekantan, habitat, passive, simple past..."
+oninput="searchMaterial()">
+</div>
+
+
+<!-- ================= MATERIAL ================= -->
+
+<section id="materi" class="section">
+
+<div class="section-title">
+<small>STUDY MATERIAL</small>
+<h2>📖 Interactive Materials</h2>
+</div>
+
+
+<!-- BEKANTAN -->
+
+<div class="accordion">
+<div class="acc-head" onclick="toggleAcc(this)">
+<strong>🦧 1. Bekantan — Proboscis Monkey</strong>
+<span class="arrow">▼</span>
+</div>
+
+<div class="acc-body">
+<div class="acc-inner">
+
+<div class="topic">
+<h3>🏷️ Scientific Name</h3>
+<p><b>Nasalis larvatus</b></p>
+</div>
+
+<div class="topic">
+<h3>👀 Physical Characteristics</h3>
+<ul>
+<li>Large and long nose, especially in males.</li>
+<li>Reddish-brown fur.</li>
+<li>Long tail.</li>
+<li>A body adapted to life around trees and water.</li>
+</ul>
+</div>
+
+<div class="topic">
+<h3>🌳 Habitat</h3>
+<ul>
+<li>Mangrove forests</li>
+<li>Swamps</li>
+<li>Riverine forests</li>
+<li>Forest areas around rivers</li>
+</ul>
+</div>
+
+<div class="topic">
+<h3>🐒 Behavior</h3>
+<ul>
+<li>Lives in groups.</li>
+<li>Spends much time around trees.</li>
+<li>Can swim well.</li>
+<li>Often stays around rivers and mangrove areas.</li>
+</ul>
+</div>
+
+<div class="topic">
+<h3>🍃 Diet</h3>
+<p>Examples of food include leaves, fruits, and seeds.</p>
+</div>
+
+<div class="topic">
+<h3>⚠️ Threats</h3>
+<ul>
+<li>Habitat loss</li>
+<li>Deforestation</li>
+<li>Human activities that change forest areas</li>
+</ul>
+</div>
+
+<div class="topic">
+<h3>🧠 Important Vocabulary</h3>
+
+<div class="table-wrap">
+<table>
+<tr><th>Word</th><th>Meaning</th></tr>
+<tr><td>native</td><td>asli</td></tr>
+<tr><td>wildlife</td><td>satwa liar</td></tr>
+<tr><td>primate</td><td>primata</td></tr>
+<tr><td>habitat</td><td>tempat hidup</td></tr>
+<tr><td>mangrove</td><td>bakau</td></tr>
+<tr><td>swamp</td><td>rawa</td></tr>
+<tr><td>fur</td><td>bulu</td></tr>
+<tr><td>tail</td><td>ekor</td></tr>
+<tr><td>endangered</td><td>terancam punah</td></tr>
+</table>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+
+<!-- ORANGUTAN -->
+
+<div class="accordion">
+<div class="acc-head" onclick="toggleAcc(this)">
+<strong>🦧 2. Orangutan & Gorilla</strong>
+<span class="arrow">▼</span>
+</div>
+
+<div class="acc-body">
+<div class="acc-inner">
+
+<div class="topic">
+<h3>🦧 Orangutan</h3>
+
+<h4>Physical Characteristics</h4>
+<ul>
+<li>Long arms.</li>
+<li>Strong body.</li>
+<li>Long hair/fur.</li>
+<li>Hands and feet adapted for movement in trees.</li>
+</ul>
+
+<h4>Habitat</h4>
+<p>Rainforests and tropical forest areas.</p>
+
+<h4>Behavior</h4>
+<ul>
+<li>Spends much time in trees.</li>
+<li>Uses arms and hands to move between trees.</li>
+<li>Known as an intelligent animal.</li>
+</ul>
+
+<h4>Diet</h4>
+<p>Fruits, leaves, plants, and insects.</p>
+
+<h4>Threats</h4>
+<p>Habitat loss, deforestation, and destruction of forest areas.</p>
+</div>
+
+
+<div class="topic">
+<h3>🦍 Gorilla</h3>
+
+<h4>Physical Characteristics</h4>
+<ul>
+<li>Large body.</li>
+<li>Strong body.</li>
+<li>Long arms.</li>
+<li>Thick fur.</li>
+</ul>
+
+<h4>Habitat</h4>
+<p>Forests and rainforests.</p>
+
+<h4>Behavior</h4>
+<ul>
+<li>Lives in groups.</li>
+<li>Has social behavior within the group.</li>
+</ul>
+
+<h4>Diet</h4>
+<p>Mainly plants such as leaves, stems, and fruits.</p>
+
+<h4>Threats</h4>
+<p>Habitat loss, deforestation, and human activities.</p>
+</div>
+
+
+<div class="topic">
+<h3>🧠 Possessive Adjectives</h3>
+
+<div class="table-wrap">
+<table>
+<tr><th>Subject</th><th>Possessive</th></tr>
+<tr><td>I</td><td>my</td></tr>
+<tr><td>You</td><td>your</td></tr>
+<tr><td>He</td><td>his</td></tr>
+<tr><td>She</td><td>her</td></tr>
+<tr><td>It</td><td>its</td></tr>
+<tr><td>We</td><td>our</td></tr>
+<tr><td>They</td><td>their</td></tr>
+</table>
+</div>
+
+<div class="example">
+The orangutan uses <b>its</b> arms.
+<br>
+Gorillas protect <b>their</b> groups.
+</div>
+</div>
+
+
+<div class="topic">
+<h3>✋ Has / Have</h3>
+
+<div class="formula">
+HE / SHE / IT → HAS<br><br>
+I / YOU / WE / THEY → HAVE
+</div>
+
+<div class="example">
+The gorilla <b>has</b> thick fur.<br>
+Orangutans <b>have</b> long arms.
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+
+<!-- INDONESIAN BIRDS -->
+
+<div class="accordion">
+<div class="acc-head" onclick="toggleAcc(this)">
+<strong>🐦 3. Indonesian Birds — Cendrawasih</strong>
+<span class="arrow">▼</span>
+</div>
+
+<div class="acc-body">
+<div class="acc-inner">
+
+<div class="topic">
+<h3>👀 Physical Characteristics</h3>
+<ul>
+<li>Beautiful feathers.</li>
+<li>Attractive colors.</li>
+<li>Decorative feathers and body displays.</li>
+</ul>
+</div>
+
+<div class="topic">
+<h3>🌳 Habitat</h3>
+<p>Forest areas of Indonesia, especially eastern Indonesia.</p>
+</div>
+
+<div class="topic">
+<h3>🐦 Behavior</h3>
+<p>
+Cendrawasih can show interesting displays using its feathers
+and body movements, especially in relation to finding a mate.
+</p>
+</div>
+
+<div class="topic">
+<h3>🍎 Diet</h3>
+<p>Fruits, insects, and small animals.</p>
+</div>
+
+<div class="topic">
+<h3>⚠️ Threats</h3>
+<ul>
+<li>Habitat destruction</li>
+<li>Deforestation</li>
+<li>Human activities</li>
+<li>Hunting in some species</li>
+</ul>
+</div>
+
+<div class="topic">
+<h3>🧠 Vocabulary</h3>
+
+<div class="table-wrap">
+<table>
+<tr><th>English</th><th>Meaning</th></tr>
+<tr><td>feather</td><td>bulu</td></tr>
+<tr><td>colorful</td><td>berwarna-warni</td></tr>
+<tr><td>species</td><td>spesies</td></tr>
+<tr><td>threat</td><td>ancaman</td></tr>
+<tr><td>conservation</td><td>pelestarian</td></tr>
+<tr><td>protect</td><td>melindungi</td></tr>
+</table>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+
+<!-- NOUN GROUP -->
+
+<div class="accordion">
+<div class="acc-head" onclick="toggleAcc(this)">
+<strong>🧩 4. Noun Group</strong>
+<span class="arrow">▼</span>
+</div>
+
+<div class="acc-body">
+<div class="acc-inner">
+
+<p>
+A <b>noun group</b> is a group of words whose main word is a noun.
+</p>
+
+<div class="formula">
+Determiner + Adjective + Noun
+</div>
+
+<div class="example">
+<b>a beautiful Indonesian bird</b>
+<br><br>
+a = determiner<br>
+beautiful = adjective<br>
+Indonesian = adjective<br>
+bird = noun
+</div>
+
+<div class="example">
+<b>the endangered Indonesian primate</b>
+<br>
+Main noun → <b>primate</b>
+</div>
+
+</div>
+</div>
+</div>
+
+
+<!-- PASSIVE -->
+
+<div class="accordion">
+<div class="acc-head" onclick="toggleAcc(this)">
+<strong>🔄 5. Passive Voice</strong>
+<span class="arrow">▼</span>
+</div>
+
+<div class="acc-body">
+<div class="acc-inner">
+
+<div class="formula">
+Subject + TO BE + Past Participle (V3)
+</div>
+
+<div class="example">
+Active:<br>
+People protect Indonesian birds.
+<br><br>
+Passive:<br>
+Indonesian birds <b>are protected</b> by people.
+</div>
+
+<div class="topic">
+<h3>🔎 Ciri Passive Voice</h3>
+<ul>
+<li>Uses <b>to be</b>.</li>
+<li>Uses <b>past participle / V3</b>.</li>
+<li>Can use <b>by</b> to show the doer.</li>
+</ul>
+</div>
+
+<div class="topic">
+<h3>✍️ Report Writing Steps</h3>
+
+<div class="formula">
+Gathering → Organizing → Drafting → Revising → Publishing
+</div>
+
+<p>
+Gathering = mengumpulkan informasi<br>
+Organizing = mengatur informasi<br>
+Drafting = membuat rancangan<br>
+Revising = memperbaiki<br>
+Publishing = mempublikasikan
+</p>
+</div>
+
+</div>
+</div>
+</div>
+
+
+<!-- REPORT -->
+
+<div class="accordion">
+<div class="acc-head" onclick="toggleAcc(this)">
+<strong>📄 6. Report Text</strong>
+<span class="arrow">▼</span>
+</div>
+
+<div class="acc-body">
+<div class="acc-inner">
+
+<div class="formula">
+GENERAL CLASSIFICATION<br>
+↓<br>
+DESCRIPTION
+</div>
+
+<div class="topic">
+<h3>General Classification</h3>
+<p>
+Introduces the animal or object generally.
+</p>
+</div>
+
+<div class="topic">
+<h3>Description</h3>
+<p>
+Provides details such as:
+</p>
+
+<ul>
+<li>Physical characteristics</li>
+<li>Habitat</li>
+<li>Behavior</li>
+<li>Diet</li>
+<li>Threats</li>
+</ul>
+</div>
+
+</div>
+</div>
+</div>
+
+
+<!-- SIMPLE PAST -->
+
+<div class="accordion">
+<div class="acc-head" onclick="toggleAcc(this)">
+<strong>🏞️ 7. Simple Past Tense</strong>
+<span class="arrow">▼</span>
+</div>
+
+<div class="acc-body">
+<div class="acc-inner">
+
+<p>
+Simple past is used for events that happened in the past.
+</p>
+
+<div class="formula">
+POSITIVE<br>
+S + V2
+<br><br>
+NEGATIVE<br>
+S + did not + V1
+<br><br>
+QUESTION<br>
+Did + S + V1?
+</div>
+
+<div class="example">
+I <b>visited</b> the national park.
+<br><br>
+I <b>did not visit</b> the national park.
+<br><br>
+<b>Did</b> you <b>visit</b> the national park?
+</div>
+
+<div class="topic">
+<h3>⚠️ Important</h3>
+<p>
+After <b>did / didn't</b>, use <b>V1</b>.
+</p>
+
+<div class="example">
+❌ Did you went?<br>
+✅ Did you go?
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+
+<!-- VERBS -->
+
+<div class="accordion">
+<div class="acc-head" onclick="toggleAcc(this)">
+<strong>🔤 8. Regular & Irregular Verbs</strong>
+<span class="arrow">▼</span>
+</div>
+
+<div class="acc-body">
+<div class="acc-inner">
+
+<div class="table-wrap">
+<table>
+<tr><th>V1</th><th>V2</th><th>Type</th></tr>
+<tr><td>visit</td><td>visited</td><td>Regular</td></tr>
+<tr><td>walk</td><td>walked</td><td>Regular</td></tr>
+<tr><td>watch</td><td>watched</td><td>Regular</td></tr>
+<tr><td>play</td><td>played</td><td>Regular</td></tr>
+<tr><td>go</td><td>went</td><td>Irregular</td></tr>
+<tr><td>see</td><td>saw</td><td>Irregular</td></tr>
+<tr><td>eat</td><td>ate</td><td>Irregular</td></tr>
+<tr><td>take</td><td>took</td><td>Irregular</td></tr>
+<tr><td>buy</td><td>bought</td><td>Irregular</td></tr>
+<tr><td>have</td><td>had</td><td>Irregular</td></tr>
+<tr><td>make</td><td>made</td><td>Irregular</td></tr>
+</table>
+</div>
+
+</div>
+</div>
+</div>
+
+
+<!-- RECOUNT -->
+
+<div class="accordion">
+<div class="acc-head" onclick="toggleAcc(this)">
+<strong>📖 9. Recount Text</strong>
+<span class="arrow">▼</span>
+</div>
+
+<div class="acc-body">
+<div class="acc-inner">
+
+<p>
+A recount text tells about past experiences or events.
+</p>
+
+<div class="formula">
+ORIENTATION<br>
+↓<br>
+EVENTS<br>
+↓<br>
+REORIENTATION
+</div>
+
+<div class="topic">
+<h3>Orientation</h3>
+<p>Who + When + Where</p>
+</div>
+
+<div class="topic">
+<h3>Events</h3>
+<p>
+The sequence of events.
+</p>
+
+<div class="example">
+First...<br>
+Then...<br>
+After that...
+</div>
+</div>
+
+<div class="topic">
+<h3>Reorientation</h3>
+<p>
+Closing statement or personal impression.
+</p>
+</div>
+
+</div>
+</div>
+</div>
+
+
+<!-- CONNECTORS -->
+
+<div class="accordion">
+<div class="acc-head" onclick="toggleAcc(this)">
+<strong>🔗 10. Connectors</strong>
+<span class="arrow">▼</span>
+</div>
+
+<div class="acc-body">
+<div class="acc-inner">
+
+<div class="table-wrap">
+<table>
+<tr><th>Connector</th><th>Meaning</th></tr>
+<tr><td>before</td><td>sebelum</td></tr>
+<tr><td>after</td><td>setelah</td></tr>
+<tr><td>once</td><td>setelah / segera setelah</td></tr>
+<tr><td>as soon as</td><td>segera setelah</td></tr>
+</table>
+</div>
+
+<div class="example">
+We ate breakfast <b>before</b> we left.
+<br><br>
+We took pictures <b>after</b> we arrived.
+<br><br>
+<b>Once</b> we arrived, we started exploring.
+<br><br>
+<b>As soon as</b> we arrived, we took pictures.
+</div>
+
+</div>
+</div>
+</div>
+
+
+<!-- PAST CONTINUOUS -->
+
+<div class="accordion">
+<div class="acc-head" onclick="toggleAcc(this)">
+<strong>🌊 11. Past Continuous</strong>
+<span class="arrow">▼</span>
+</div>
+
+<div class="acc-body">
+<div class="acc-inner">
+
+<p>
+Past continuous describes an activity that was in progress at a particular time in the past.
+</p>
+
+<div class="formula">
+S + WAS/WERE + V-ing
+</div>
+
+<div class="topic">
+<h3>WAS</h3>
+<p>I / He / She / It</p>
+
+<div class="example">
+She <b>was swimming</b>.
+</div>
+</div>
+
+<div class="topic">
+<h3>WERE</h3>
+<p>You / We / They</p>
+
+<div class="example">
+They <b>were snorkeling</b>.
+</div>
+</div>
+
+</div>
+</div>
+</div>
+
+
+<!-- WHEN WHILE -->
+
+<div class="accordion">
+<div class="acc-head" onclick="toggleAcc(this)">
+<strong>⚡ 12. When & While</strong>
+<span class="arrow">▼</span>
+</div>
+
+<div class="acc-body">
+<div class="acc-inner">
+
+<div class="topic">
+<h3>WHEN</h3>
+
+<p>
+Often connects an ongoing activity with another event.
+</p>
+
+<div class="example">
+I <b>was snorkeling</b> when I <b>saw</b> a turtle.
+</div>
+</div>
+
+<div class="topic">
+<h3>WHILE</h3>
+
+<p>
+Often connects activities happening during the same period.
+</p>
+
+<div class="example">
+I <b>was swimming</b> while my friend <b>was taking</b> pictures.
+</div>
+</div>
+
+<div class="formula">
+WHEN → event<br>
+WHILE → ongoing activity
+</div>
+
+</div>
+</div>
+</div>
+
+</section>
+
+
+<!-- ================= FLASHCARDS ================= -->
+
+<section class="section">
+
+<div class="section-title">
+<small>MEMORY MODE</small>
+<h2>🃏 Flashcards</h2>
+<p style="color:var(--muted);margin-top:8px">
+Tap a card to flip it.
+</p>
+</div>
+
+<div class="flash-area" id="flashcards">
+
+<div class="flashcard" onclick="flipCard(this)">
+<div class="flash-inner">
+<div class="flash-front">Scientific Name Bekantan?</div>
+<div class="flash-back"><b>Nasalis larvatus</b></div>
+</div>
+</div>
+
+<div class="flashcard" onclick="flipCard(this)">
+<div class="flash-inner">
+<div class="flash-front">Wildlife</div>
+<div class="flash-back">Satwa liar</div>
+</div>
+</div>
+
+<div class="flashcard" onclick="flipCard(this)">
+<div class="flash-inner">
+<div class="flash-front">Primate</div>
+<div class="flash-back">Primata</div>
+</div>
+</div>
+
+<div class="flashcard" onclick="flipCard(this)">
+<div class="flash-inner">
+<div class="flash-front">Habitat</div>
+<div class="flash-back">Tempat hidup suatu makhluk hidup</div>
+</div>
+</div>
+
+<div class="flashcard" onclick="flipCard(this)">
+<div class="flash-inner">
+<div class="flash-front">Passive Voice Formula</div>
+<div class="flash-back">Subject + TO BE + V3</div>
+</div>
+</div>
+
+<div class="flashcard" onclick="flipCard(this)">
+<div class="flash-inner">
+<div class="flash-front">Simple Past</div>
+<div class="flash-back">S + V2</div>
+</div>
+</div>
+
+<div class="flashcard" onclick="flipCard(this)">
+<div class="flash-inner">
+<div class="flash-front">Past Continuous</div>
+<div class="flash-back">S + was/were + V-ing</div>
+</div>
+</div>
+
+<div class="flashcard" onclick="flipCard(this)">
+<div class="flash-inner">
+<div class="flash-front">Recount Structure</div>
+<div class="flash-back">Orientation → Events → Reorientation</div>
+</div>
+</div>
+
+</div>
+
+<br>
+
+<button class="btn primary" onclick="shuffleCards()">
+🔀 Shuffle Flashcards
+</button>
+
+</section>
+
+
+<!-- ================= QUIZ ================= -->
+
+<section id="quiz" class="section">
+
+<div class="section-title">
+<small>EXAM SIMULATION</small>
+<h2>🎯 Interactive Quiz</h2>
+<p style="color:var(--muted);margin-top:8px">
+Questions are practice questions based on the indicators in your PTS blueprint,
+not the actual exam questions.
+</p>
+</div>
+
+<div class="quiz-card">
+
+<div class="quiz-top">
+<b id="questionNumber">Question 1 / 20</b>
+<span class="timer" id="timer">⏱ 15:00</span>
+</div>
+
+<div class="progress">
+<div class="progress-bar" id="progressBar"></div>
+</div>
+
+<div id="quizContent">
+
+<div class="question" id="question">
+Press "Start Quiz" to begin.
+</div>
+
+<div class="options" id="options"></div>
+
+<div class="feedback" id="feedback"></div>
+
+</div>
+
+<div class="quiz-actions">
+
+<button class="btn primary" id="startBtn" onclick="startQuiz()">
+▶ Start Quiz
+</button>
+
+<button class="btn green" id="nextBtn" onclick="nextQuestion()" style="display:none">
+Next →
+</button>
+
+</div>
+
+<div class="score" id="scoreBox">
+
+<div class="score-number" id="scoreNumber">0</div>
+
+<h3 id="scoreTitle">Result</h3>
+
+<p id="scoreText"></p>
+
+<br>
+
+<button class="btn primary" onclick="startQuiz()">
+🔄 Try Again
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ================= QUICK REVIEW ================= -->
+
+<section class="section">
+
+<div class="section-title">
+<small>QUICK REVIEW</small>
+<h2>⚡ 30-Second Memory</h2>
+</div>
+
+<div class="result-box">
+
+<h3>Hafalan Super Cepat</h3>
+
+<p style="line-height:2;color:#dcecff">
+
+🦧 <b>Bekantan</b> → Nasalis larvatus<br>
+
+🧩 <b>Noun Group</b> → determiner + adjective + noun<br>
+
+✋ <b>Has</b> → he/she/it<br>
+✋ <b>Have</b> → I/you/we/they<br>
+
+🔄 <b>Passive</b> → to be + V3<br>
+
+📄 <b>Report</b> → classification + description<br>
+
+🏞️ <b>Simple Past</b> → V2<br>
+
+❓ <b>Did</b> → V1 after did<br>
+
+📖 <b>Recount</b> → orientation + events + reorientation<br>
+
+🌊 <b>Past Continuous</b> → was/were + V-ing<br>
+
+⚡ <b>When</b> → event<br>
+⚡ <b>While</b> → ongoing activity
+
+</p>
+
+</div>
+
+</section>
+
+
+<!-- ================= REFLECTION ================= -->
+
+<section class="section">
+
+<div class="section-title">
+<small>SELF CHECK</small>
+<h2>🧠 Reflection</h2>
+</div>
+
+<div class="topic">
+
+<p style="margin-bottom:10px">
+Setelah belajar, bagian mana yang masih bikin bingung?
+</p>
+
+<textarea id="reflection"
+placeholder="Contoh: Saya masih bingung membedakan passive voice dan simple past..."></textarea>
+
+<br><br>
+
+<button class="btn green" onclick="saveReflection()">
+💾 Save Reflection
+</button>
+
+</div>
+
+</section>
+
+</main>
+
+
+<button class="top" id="topBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+↑
+</button>
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* =========================================
+   ACCORDION
+========================================= */
+
+function toggleAcc(head){
+
+  const accordion = head.parentElement;
+
+  accordion.classList.toggle("open");
+
+}
+
+
+/* =========================================
+   OPEN / CLOSE ALL
+========================================= */
+
+function openAll(){
+
+  document.querySelectorAll(".accordion").forEach(a=>{
+    a.classList.add("open");
+  });
+
+  showToast("📖 Semua materi dibuka!");
+}
+
+function closeAll(){
+
+  document.querySelectorAll(".accordion").forEach(a=>{
+    a.classList.remove("open");
+  });
+
+  showToast("📕 Semua materi ditutup!");
+}
+
+
+/* =========================================
+   SCROLL
+========================================= */
+
+function scrollToSection(id){
+
+  document.getElementById(id).scrollIntoView({
+    behavior:"smooth"
+  });
+
+}
+
+
+/* =========================================
+   FLASHCARD
+========================================= */
+
+function flipCard(card){
+
+  card.classList.toggle("flipped");
+
+}
+
+
+function shuffleCards(){
+
+  const container = document.getElementById("flashcards");
+
+  const cards = [...container.children];
+
+  cards.sort(()=>Math.random()-0.5);
+
+  cards.forEach(card=>container.appendChild(card));
+
+  showToast("🔀 Flashcards berhasil diacak!");
+
+}
+
+
+/* =========================================
+   SEARCH MATERIAL
+========================================= */
+
+function searchMaterial(){
+
+  const keyword =
+    document.getElementById("search").value.toLowerCase().trim();
+
+  const accordions =
+    document.querySelectorAll(".accordion");
+
+  accordions.forEach(acc=>{
+
+    const text = acc.innerText.toLowerCase();
+
+    if(keyword && text.includes(keyword)){
+
+      acc.style.display="block";
+      acc.classList.add("open");
+
+    }else if(keyword){
+
+      acc.style.display="none";
+
+    }else{
+
+      acc.style.display="block";
+
+    }
+
+  });
+
+}
+
+
+/* =========================================
+   QUIZ DATA
+========================================= */
+
+const quizData = [
+
+{
+q:"What is the scientific name of the proboscis monkey (Bekantan)?",
+options:[
+"Nasalis larvatus",
+"Pongo pygmaeus",
+"Pan troglodytes",
+"Paradisaea apoda"
+],
+answer:0,
+explain:"The scientific name of the proboscis monkey is Nasalis larvatus."
+},
+
+{
+q:"Which word means 'satwa liar'?",
+options:[
+"native",
+"wildlife",
+"primate",
+"habitat"
+],
+answer:1,
+explain:"Wildlife means animals living in their natural environment or satwa liar."
+},
+
+{
+q:"Which of these is a habitat associated with Bekantan?",
+options:[
+"Mangrove forest",
+"Desert",
+"Arctic ice",
+"Open ocean"
+],
+answer:0,
+explain:"Bekantan is associated with mangrove and forest areas around rivers."
+},
+
+{
+q:"Which sentence contains a correct noun group?",
+options:[
+"beautiful bird Indonesian a",
+"a beautiful Indonesian bird",
+"bird a Indonesian beautiful",
+"Indonesian a bird beautiful"
+],
+answer:1,
+explain:"A possible noun group pattern is determiner + adjective + adjective + noun."
+},
+
+{
+q:"Choose the correct possessive adjective: The orangutan uses ___ arms.",
+options:[
+"their",
+"its",
+"our",
+"his"
+],
+answer:1,
+explain:"Orangutan is singular, so the possessive adjective is 'its'."
+},
+
+{
+q:"The gorilla ___ thick fur.",
+options:[
+"have",
+"has",
+"having",
+"had have"
+],
+answer:1,
+explain:"Gorilla is singular, so use 'has'."
+},
+
+{
+q:"Which sentence is passive?",
+options:[
+"People protect birds.",
+"Birds protect people.",
+"Birds are protected by people.",
+"People are protect birds."
+],
+answer:2,
+explain:"Passive voice uses to be + past participle. 'Are protected' is passive."
+},
+
+{
+q:"Which form is the past participle of 'protect'?",
+options:[
+"protect",
+"protecting",
+"protected",
+"protects"
+],
+answer:2,
+explain:"Protected is the past participle (V3) of protect."
+},
+
+{
+q:"Which is the correct order for report writing?",
+options:[
+"Publishing → Revising → Drafting → Gathering → Organizing",
+"Gathering → Organizing → Drafting → Revising → Publishing",
+"Drafting → Gathering → Publishing → Revising → Organizing",
+"Organizing → Publishing → Gathering → Drafting → Revising"
+],
+answer:1,
+explain:"The sequence is Gathering, Organizing, Drafting, Revising, Publishing."
+},
+
+{
+q:"Which sentence uses simple past correctly?",
+options:[
+"I visit the park yesterday.",
+"I visited the park yesterday.",
+"I visiting the park yesterday.",
+"I visits the park yesterday."
+],
+answer:1,
+explain:"A completed action in the past uses V2: visited."
+},
+
+{
+q:"Choose the correct question.",
+options:[
+"Did you went there?",
+"Did you go there?",
+"Did you going there?",
+"Did you goes there?"
+],
+answer:1,
+explain:"After 'Did', use the base verb V1: go."
+},
+
+{
+q:"Which is the correct negative sentence?",
+options:[
+"I didn't went there.",
+"I didn't go there.",
+"I didn't going there.",
+"I don't went there."
+],
+answer:1,
+explain:"After didn't, use V1: go."
+},
+
+{
+q:"What is the structure of a recount text?",
+options:[
+"Description → Classification",
+"Orientation → Events → Reorientation",
+"Events → Classification → Title",
+"Title → Description → Conclusion"
+],
+answer:1,
+explain:"A recount consists of orientation, events, and reorientation."
+},
+
+{
+q:"Which connector means 'sebelum'?",
+options:[
+"after",
+"once",
+"before",
+"while"
+],
+answer:2,
+explain:"Before means sebelum."
+},
+
+{
+q:"Which connector means 'segera setelah'?",
+options:[
+"as soon as",
+"before",
+"while",
+"although"
+],
+answer:0,
+explain:"As soon as means segera setelah."
+},
+
+{
+q:"Choose the correct past continuous sentence.",
+options:[
+"They were snorkeling.",
+"They was snorkeling.",
+"They are snorkeling yesterday.",
+"They snorkeling."
+],
+answer:0,
+explain:"They uses were + V-ing."
+},
+
+{
+q:"Which sentence correctly uses 'when'?",
+options:[
+"I was snorkeling when I saw a turtle.",
+"I was snorkeling while I saw a turtle.",
+"I snorkeling when I was saw a turtle.",
+"I was snorkeled when I see a turtle."
+],
+answer:0,
+explain:"The ongoing action uses past continuous and the event uses simple past."
+},
+
+{
+q:"Which sentence correctly uses 'while' for two ongoing activities?",
+options:[
+"I was swimming while my friend was taking pictures.",
+"I swim while my friend took pictures yesterday.",
+"I was swim while my friend taking pictures.",
+"I swimming while my friend was take pictures."
+],
+answer:0,
+explain:"While can connect two activities happening during the same period."
+},
+
+{
+q:"Which sentence correctly combines past continuous and simple past?",
+options:[
+"I was walking when it started to rain.",
+"I was walk when it start to rain.",
+"I walked when it was rain.",
+"I walking when it started rain."
+],
+answer:0,
+explain:"Was walking is the ongoing activity; started is the past event."
+},
+
+{
+q:"Which statement best describes the difference between report and recount text?",
+options:[
+"Report gives general factual information; recount tells past events or experiences.",
+"Report always tells a personal holiday; recount describes animals generally.",
+"Both always use only present continuous.",
+"Both have exactly the same structure."
+],
+answer:0,
+explain:"Report text provides factual/general information, while recount tells past experiences/events."
+}
+
+];
+
+
+/* =========================================
+   QUIZ VARIABLES
+========================================= */
+
+let currentQuestion=0;
+let score=0;
+let answered=false;
+let quizTimer;
+let timeLeft=900;
+
+
+/* =========================================
+   START QUIZ
+========================================= */
+
+function startQuiz(){
+
+  currentQuestion=0;
+  score=0;
+  answered=false;
+  timeLeft=900;
+
+  document.getElementById("scoreBox").style.display="none";
+  document.getElementById("quizContent").style.display="block";
+
+  document.getElementById("startBtn").style.display="none";
+
+  showQuestion();
+
+  clearInterval(quizTimer);
+
+  quizTimer=setInterval(updateTimer,1000);
+
+  scrollToSection("quiz");
+
+}
+
+
+/* =========================================
+   SHOW QUESTION
+========================================= */
+
+function showQuestion(){
+
+  answered=false;
+
+  const data=quizData[currentQuestion];
+
+  document.getElementById("questionNumber").textContent=
+    `Question ${currentQuestion+1} / ${quizData.length}`;
+
+  document.getElementById("question").textContent=data.q;
+
+  const options=document.getElementById("options");
+
+  options.innerHTML="";
+
+  data.options.forEach((option,index)=>{
+
+    const button=document.createElement("button");
+
+    button.className="option";
+
+    button.textContent=
+      String.fromCharCode(65+index)+". "+option;
+
+    button.onclick=()=>selectAnswer(index,button);
+
+    options.appendChild(button);
+
+  });
+
+  document.getElementById("feedback").textContent="";
+
+  document.getElementById("nextBtn").style.display="none";
+
+  const progress=
+    ((currentQuestion)/quizData.length)*100;
+
+  document.getElementById("progressBar").style.width=
+    progress+"%";
+
+}
+
+
+/* =========================================
+   ANSWER
+========================================= */
+
+function selectAnswer(index,button){
+
+  if(answered) return;
+
+  answered=true;
+
+  const data=quizData[currentQuestion];
+
+  const buttons=
+    document.querySelectorAll(".option");
+
+  buttons.forEach((b,i)=>{
+
+    if(i===data.answer){
+
+      b.classList.add("correct");
+
+    }
+
+  });
+
+  const feedback=
+    document.getElementById("feedback");
+
+  if(index===data.answer){
+
+    score++;
+
+    button.classList.add("correct");
+
+    feedback.innerHTML=
+      "✅ Correct! "+data.explain;
+
+  }else{
+
+    button.classList.add("wrong");
+
+    feedback.innerHTML=
+      "❌ Not quite. "+data.explain;
+
+  }
+
+  document.getElementById("nextBtn").style.display="block";
+
+}
+
+
+/* =========================================
+   NEXT
+========================================= */
+
+function nextQuestion(){
+
+  currentQuestion++;
+
+  if(currentQuestion>=quizData.length){
+
+    finishQuiz();
+
+  }else{
+
+    showQuestion();
+
+  }
+
+}
+
+
+/* =========================================
+   TIMER
+========================================= */
+
+function updateTimer(){
+
+  timeLeft--;
+
+  if(timeLeft<=0){
+
+    clearInterval(quizTimer);
+
+    finishQuiz();
+
+    return;
+
+  }
+
+  const minutes=
+    Math.floor(timeLeft/60);
+
+  const seconds=
+    timeLeft%60;
+
+  document.getElementById("timer").textContent=
+    "⏱ "+minutes+":"+
+    String(seconds).padStart(2,"0");
+
+}
+
+
+/* =========================================
+   FINISH QUIZ
+========================================= */
+
+function finishQuiz(){
+
+  clearInterval(quizTimer);
+
+  document.getElementById("quizContent").style.display="none";
+  document.getElementById("nextBtn").style.display="none";
+
+  const scoreBox=document.getElementById("scoreBox");
+
+  scoreBox.style.display="block";
+
+  const percentage=
+    Math.round((score/quizData.length)*100);
+
+  document.getElementById("scoreNumber").textContent=
+    percentage+"%";
+
+  let title="";
+  let text="";
+
+  if(percentage>=90){
+
+    title="🔥 Excellent!";
+
+    text=
+      `Kamu menjawab ${score} dari ${quizData.length} soal dengan benar.`;
+
+  }else if(percentage>=75){
+
+    title="✨ Great Job!";
+
+    text=
+      `Hasilmu bagus. Kamu benar ${score} dari ${quizData.length} soal.`;
+
+  }else if(percentage>=60){
+
+    title="💪 Keep Practicing!";
+
+    text=
+      `Kamu benar ${score} dari ${quizData.length}. Ulangi bagian yang masih salah.`;
+
+  }else{
+
+    title="📚 Let's Study Again!";
+
+    text=
+      `Kamu benar ${score} dari ${quizData.length}. Coba baca materi lalu ulangi kuis.`;
+
+  }
+
+  document.getElementById("scoreTitle").textContent=title;
+
+  document.getElementById("scoreText").textContent=text;
+
+}
+
+
+/* =========================================
+   REFLECTION
+========================================= */
+
+function saveReflection(){
+
+  const value=
+    document.getElementById("reflection").value.trim();
+
+  if(!value){
+
+    showToast("✍️ Tulis refleksimu dulu!");
+
+    return;
+
+  }
+
+  localStorage.setItem(
+    "englishReflection",
+    value
+  );
+
+  showToast("💾 Reflection saved!");
+
+}
+
+
+/* =========================================
+   LOAD REFLECTION
+========================================= */
+
+window.addEventListener("load",()=>{
+
+  const saved=
+    localStorage.getItem("englishReflection");
+
+  if(saved){
+
+    document.getElementById("reflection").value=saved;
+
+  }
+
+});
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+function showToast(message){
+
+  const toast=
+    document.getElementById("toast");
+
+  toast.textContent=message;
+
+  toast.classList.add("show");
+
+  setTimeout(()=>{
+
+    toast.classList.remove("show");
+
+  },2000);
+
+}
+
+
+/* =========================================
+   BACK TO TOP
+========================================= */
+
+window.addEventListener("scroll",()=>{
+
+  const top=
+    document.getElementById("topBtn");
+
+  if(window.scrollY>500){
+
+    top.style.display="block";
+
+  }else{
+
+    top.style.display="none";
+
+  }
+
+});
+
+
+/* =========================================
+   KEYBOARD SHORTCUT
+========================================= */
+
+document.addEventListener("keydown",e=>{
+
+  if(e.key==="Enter" && !answered){
+
+    const first=
+      document.querySelector(".option");
+
+    if(first) first.click();
+
+  }
+
+});
+
+
+/* =========================================
+   WELCOME
+========================================= */
+
+setTimeout(()=>{
+
+  showToast("👋 Welcome! Let's study English IX.");
+
+},800);
+
+</script>
+
+</body>
+</html>
